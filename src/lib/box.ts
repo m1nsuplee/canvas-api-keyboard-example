@@ -38,9 +38,27 @@ export class Box {
     } else {
       this.velocity.y += this._gravity;
     }
+
+    if (this.isCollidedLeft()) {
+      this.position.x = 0;
+      this.velocity.x *= -1;
+    }
+
+    if (this.isCollidedRight(ctx)) {
+      this.position.x = ctx.canvas.width - this.width;
+      this.velocity.x *= -1;
+    }
   }
 
   isCollidedY(ctx: CanvasRenderingContext2D): boolean {
     return this.position.y + this.height + this.velocity.y > ctx.canvas.height;
+  }
+
+  isCollidedLeft(): boolean {
+    return this.position.x < 0;
+  }
+
+  isCollidedRight(ctx: CanvasRenderingContext2D): boolean {
+    return this.position.x + this.width > ctx.canvas.width;
   }
 }
