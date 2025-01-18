@@ -15,6 +15,13 @@ function main(): void {
     throw new Error('Canvas context not found');
   }
 
+  const resizeCanvas = () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  };
+
+  window.addEventListener('resize', resizeCanvas);
+
   const box = new Box();
 
   animate(() => {
