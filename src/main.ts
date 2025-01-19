@@ -2,12 +2,18 @@ import { DOM_IDS } from './lib/dom-ids';
 import { animate, getCanvasElementById } from './lib/helpers';
 import { Keys } from './lib/keyboard';
 import { Box } from './lib/box';
+import Mushroom from './assets/mushroom.webp';
+import { Platform } from './lib/platform';
 
 function main(): void {
   const canvas = getCanvasElementById(DOM_IDS.CANVAS);
 
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  const dpr = window.devicePixelRatio;
+
+  canvas.style.width = `${window.innerWidth}px`;
+  canvas.style.height = `${window.innerHeight}px`;
+  canvas.width = window.innerWidth * dpr;
+  canvas.height = window.innerHeight * dpr;
 
   const context = canvas.getContext('2d');
 
@@ -16,17 +22,22 @@ function main(): void {
   }
 
   const resizeCanvas = () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.style.width = `${window.innerWidth}px`;
+    canvas.style.height = `${window.innerHeight}px`;
+    canvas.width = window.innerWidth * dpr;
+    canvas.height = window.innerHeight * dpr;
   };
 
   window.addEventListener('resize', resizeCanvas);
 
   const box = new Box();
 
+  const platform = new Platform(100, 100, 178, 180, Mushroom);
+
   animate(() => {
     context.clearRect(0, 0, canvas.width, canvas.height);
     box.update(context);
+    platform.draw(context);
   });
 
   window.addEventListener('keydown', (event) => {

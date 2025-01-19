@@ -18,8 +18,8 @@ export class Box {
       y: 1,
     };
 
-    this.width = 30;
-    this.height = 30;
+    this.width = 100;
+    this.height = 100;
   }
 
   private draw(ctx: CanvasRenderingContext2D): void {
@@ -27,7 +27,7 @@ export class Box {
     ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
 
-  update(ctx: CanvasRenderingContext2D): void {
+  public update(ctx: CanvasRenderingContext2D): void {
     this.draw(ctx);
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
